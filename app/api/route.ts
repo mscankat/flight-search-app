@@ -16,7 +16,7 @@ export async function POST(request: Request) {
     ) {
       result.push(x);
 
-      if (result.length >= 10) {
+      if (result.length >= 6) {
         break;
       }
     }
