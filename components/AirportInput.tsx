@@ -36,13 +36,22 @@ export default function AirportInput() {
         placeholder="from"
       />
       {suggestions[0] && (
-        <ul className="absolute top-14 bg-zinc-100 p-4 rounded-lg ">
-          <li className="text-right">X</li>
+        <ul className="absolute top-14 bg-zinc-100 rounded-sm ">
+          <li className="text-right px-4 pt-4">X</li>
           {suggestions.map((suggestion, index) => {
             return (
-              <li className="mt-1" key={index}>
-                {" "}
-                {suggestion.code + " " + suggestion.name}
+              <li
+                className="pb-3 flex w-96 px-4 text-sm justify-between hover:bg-blue-300 cursor-pointer"
+                key={index}
+              >
+                <div>
+                  {suggestion.name +
+                    ", " +
+                    suggestion.city +
+                    ", " +
+                    suggestion.country}
+                </div>
+                <div>{suggestion.code}</div>
               </li>
             );
           })}

@@ -10,8 +10,8 @@ export async function POST(request: Request) {
   for (const x of airports) {
     if (
       x.code.toLowerCase().startsWith(query) ||
-      x.name.toLowerCase().includes(query) ||
-      x.city.toLowerCase().includes(query)
+      x.city.toLowerCase().startsWith(query) ||
+      x.name.toLowerCase().startsWith(query)
     ) {
       result.push(x);
 
