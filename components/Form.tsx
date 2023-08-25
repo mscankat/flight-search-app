@@ -11,7 +11,7 @@ export default function Form() {
         <div className="flex px-11 pb-11 justify-between">
           <AirportInput />
           <div>exh</div>
-          <AirportInput />
+          {/* <AirportInput /> */}
         </div>
         <div className="flex px-11 justify-between">
           <DatePicker />
