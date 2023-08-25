@@ -1,14 +1,26 @@
 import { NextResponse } from "next/server";
 import airports from "@/public/airports.json";
+interface IReq {
+  query: string;
+}
 export async function POST(request: Request) {
-  const body = await request.json();
+  const body: IReq = await request.json();
+  const query = body.query.toLowerCase();
   let result: any[] = [];
-  airports.forEach((x) => {
-    if (x.code.startsWith(body.query)) {
+  for (const x of airports) {
+    if (
+      x.code.toLowerCase().startsWith(query) ||
+      x.name.toLowerCase().includes(query) ||
+      x.city.toLowerCase().includes(query)
+    ) {
       result.push(x);
+
+      if (result.length >= 10) {
+        break;
+      }
     }
-  });
+  }
+
   console.log(result);
-  //   console.log(JSON.stringify(airports));
   return NextResponse.json(result);
 }

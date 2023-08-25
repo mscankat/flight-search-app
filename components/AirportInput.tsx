@@ -31,11 +31,11 @@ export default function AirportInput() {
       {suggestions[0] && (
         <ul className="absolute top-14 bg-zinc-100 p-4 rounded-lg ">
           <li className="text-right">X</li>
-          {suggestions.slice(0, 10).map((suggestion, index) => {
+          {suggestions.map((suggestion, index) => {
             return (
               <li className="mt-1" key={index}>
                 {" "}
-                {suggestion.code + " " + suggestion.city}
+                {suggestion.code + " " + suggestion.name}
               </li>
             );
           })}
