@@ -1,9 +1,16 @@
 "use client";
 import { useState } from "react";
 
+interface dataType {
+  code: string;
+  name: string;
+  city: string;
+  country: string;
+}
+
 export default function AirportInput() {
   const [input, setInput] = useState();
-  const [suggestions, setSuggestions] = useState([]);
+  const [suggestions, setSuggestions] = useState<dataType[]>([]);
   const handleChange = async (e: any) => {
     setInput(e.target.value);
     if (e.target.value !== "") {
@@ -12,7 +19,7 @@ export default function AirportInput() {
         method: "POST",
         body: JSON.stringify(reqBody),
       });
-      const data = await response.json();
+      const data: dataType[] = await response.json();
       console.log(data);
       setSuggestions(data);
     } else {
