@@ -11,7 +11,8 @@ export async function POST(request: Request) {
     if (
       x.code.toLowerCase().startsWith(query) ||
       x.city.toLowerCase().startsWith(query) ||
-      x.name.toLowerCase().startsWith(query)
+      x.name.toLowerCase().startsWith(query) ||
+      x.state?.toLowerCase().startsWith(query)
     ) {
       result.push(x);
 
