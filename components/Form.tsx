@@ -1,6 +1,6 @@
 "use client";
 import AirportInput from "./AirportInput";
-import DatePicker from "./DatePicker";
+import DatePick from "./DatePick";
 import PassengerSelect from "./PassengerSelect";
 import ToggleTripDirection from "./ToggleTripDirection";
 import { useState } from "react";
@@ -20,8 +20,7 @@ export default function Form() {
           <AirportInput />
         </div>
         <div className="flex px-11 justify-between">
-          <DatePicker disabled={false} />
-          <DatePicker disabled={direction === "one" ? true : false} />
+          <DatePick disabled={direction === "one" ? true : false} />
           <PassengerSelect />
           <button className="w-40 text-center bg-green-500 p-3 rounded-lg">
             search
