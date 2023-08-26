@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 
 interface dataType {
   code: string;
@@ -8,10 +8,16 @@ interface dataType {
   country: string;
 }
 
-export default function AirportInput() {
-  const [input, setInput] = useState("");
+export default function AirportInput({
+  airport,
+  setAirport,
+}: {
+  airport: dataType | null;
+  setAirport: Dispatch<SetStateAction<dataType | null>>;
+}) {
   const [suggestions, setSuggestions] = useState<dataType[]>([]);
   const [showSuggestions, setShowSuggestions] = useState(false);
+  const [input, setInput] = useState("");
 
   const handleChange = async (e: any) => {
     setInput(e.target.value);
@@ -23,13 +29,16 @@ export default function AirportInput() {
       });
       const data: dataType[] = await response.json();
       console.log(data);
+      setAirport(null);
       setSuggestions(data);
       setShowSuggestions(true);
     } else {
+      setAirport(null);
       setShowSuggestions(false);
     }
   };
   const handleSuggestionClick = (suggestion: dataType) => {
+    setAirport(suggestion);
     setInput(suggestion.name);
     setShowSuggestions(false);
   };
@@ -39,13 +48,20 @@ export default function AirportInput() {
 
   return (
     <div className="flex flex-col relative">
-      <input
-        type="text"
-        onChange={handleChange}
-        value={input}
-        className=" w-96 bg-slate-300 p-3 rounded-lg"
-        placeholder="from"
-      />
+      <div className=" w-96 bg-slate-300 p-2 rounded-lg ">
+        <input
+          type="text"
+          onChange={handleChange}
+          value={input}
+          placeholder="from"
+          className="bg-transparent outline-none w-full"
+        />
+        {airport && (
+          <div className="text-sm">
+            {airport.city + " (" + airport.code + ")"}
+          </div>
+        )}
+      </div>
       {suggestions[0] && showSuggestions && (
         <ul className="absolute top-14 bg-zinc-100 rounded-sm z-10 ">
           <li>

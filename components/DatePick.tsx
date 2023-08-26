@@ -1,12 +1,23 @@
 "use client";
-import { useState } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 import Datepicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
-export default function DatePick({ disabled }: { disabled: boolean }) {
+export default function DatePick({
+  disabled,
+  startDate,
+  endDate,
+  setStartDate,
+  setEndDate,
+}: {
+  disabled: boolean;
+  startDate: Date | null;
+  endDate: Date | null;
+  setStartDate: Dispatch<SetStateAction<Date | null>>;
+  setEndDate: Dispatch<SetStateAction<Date | null>>;
+}) {
   const [date, setDate] = useState(new Date());
-  const [startDate, setStartDate] = useState<Date | null>();
-  const [endDate, setEndDate] = useState<Date | null>();
+
   const handleChange = (range: [Date | null, Date | null]) => {
     const [startDate, endDate] = range;
 
