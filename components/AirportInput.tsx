@@ -47,7 +47,7 @@ export default function AirportInput() {
         placeholder="from"
       />
       {suggestions[0] && showSuggestions && (
-        <ul className="absolute top-14 bg-zinc-100 rounded-sm ">
+        <ul className="absolute top-14 bg-zinc-100 rounded-sm z-10 ">
           <li>
             <div
               onClick={handleSuggestionClose}
