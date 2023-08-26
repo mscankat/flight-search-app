@@ -30,7 +30,10 @@ export default function AirportInput() {
     }
   };
   const handleSuggestionClick = (suggestion: dataType) => {
-    setInput(suggestion.name); // Populate input with clicked suggestion's name
+    setInput(suggestion.name);
+    setShowSuggestions(false);
+  };
+  const handleSuggestionClose = () => {
     setShowSuggestions(false);
   };
 
@@ -45,7 +48,14 @@ export default function AirportInput() {
       />
       {suggestions[0] && showSuggestions && (
         <ul className="absolute top-14 bg-zinc-100 rounded-sm ">
-          <li className="text-right px-4 p-4">X</li>
+          <li>
+            <div
+              onClick={handleSuggestionClose}
+              className=" cursor-pointer w-2 ml-auto mr-6 mt-2 p-2"
+            >
+              X
+            </div>
+          </li>
           {suggestions.map((suggestion, index) => {
             return (
               <li
