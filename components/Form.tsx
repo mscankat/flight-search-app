@@ -3,14 +3,33 @@ import AirportInput from "./AirportInput";
 import DatePick from "./DatePick";
 import PassengerSelect from "./PassengerSelect";
 import ToggleTripDirection from "./ToggleTripDirection";
-import { useState } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
+
 interface airportType {
   code: string;
   name: string;
   city: string;
   country: string;
 }
-export default function Form() {
+interface dataType {
+  onTime: boolean;
+  flight_info: {
+    airline: string;
+    arrival_airport: string;
+    arrival_date: string;
+    arrival_time: string;
+    departure_airport: string;
+    departure_date: string;
+    departure_time: string;
+    flight_number: number;
+    price: number;
+  };
+}
+export default function Form({
+  setData,
+}: {
+  setData: Dispatch<SetStateAction<dataType[] | null>>;
+}) {
   const [direction, setDirection] = useState("one");
   const [originAirport, setOriginAirport] = useState<airportType | null>(null);
   const [arrivalAirport, setArrivalAirport] = useState<airportType | null>(
@@ -18,7 +37,6 @@ export default function Form() {
   );
   const [startDate, setStartDate] = useState<Date | null>(null);
   const [endDate, setEndDate] = useState<Date | null>(null);
-  const [departureTime, setDepartureTime] = useState();
   const handleSubmit = async (e: React.MouseEvent) => {
     e.preventDefault();
     console.log(startDate?.valueOf);
@@ -32,6 +50,7 @@ export default function Form() {
       body: JSON.stringify(query),
     });
     const data = await response.json();
+    setData(data);
     console.log(data);
   };
   return (

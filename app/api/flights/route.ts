@@ -18,11 +18,11 @@ export async function POST(request: Request) {
       console.log(departureDate);
       console.log(new Date(x.departure_date.toString()));
       console.log(new Date(departureDate));
-
+      const flight_info = x;
       if (x.departure_date.toString() === departureDate) {
-        result.push({ onTime: true, x });
+        result.push({ onTime: true, flight_info });
       } else {
-        result.push({ onTime: false, x });
+        result.push({ onTime: false, flight_info });
       }
     }
   }
