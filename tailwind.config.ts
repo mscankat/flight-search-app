@@ -18,6 +18,9 @@ const config: Config = {
         "1920": "1920px",
         "1000": "1000px",
       },
+      colors: {
+        main: "#005eb8",
+      },
     },
   },
   plugins: [],
