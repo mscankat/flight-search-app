@@ -21,12 +21,15 @@ export default function DatePick({ disabled }: { disabled: boolean }) {
     <>
       <Datepicker
         className="w-60 bg-slate-200 p-3 rounded-lg"
+        dateFormat={"dd/MM/yyyy"}
         selected={startDate}
         onChange={handleChangeOne}
         startDate={startDate}
         isClearable
+        minDate={new Date()}
       />
       <Datepicker
+        dateFormat={"dd/MM/yyyy"}
         disabled
         className="w-60 p-3 rounded-lg"
         onChange={() => null}
@@ -36,27 +39,26 @@ export default function DatePick({ disabled }: { disabled: boolean }) {
     <>
       <Datepicker
         className="w-60 bg-slate-200 p-3 rounded-lg"
+        dateFormat={"dd/MM/yyyy"}
         selected={startDate}
         onChange={handleChange}
         startDate={startDate}
-        selectsStart
-        selectsEnd
         selectsRange
         monthsShown={2}
         isClearable
+        minDate={new Date()}
       />
       <Datepicker
         className="w-60 bg-slate-200 p-3 rounded-lg"
-        onChange={() => null}
+        dateFormat={"dd/MM/yyyy"}
+        onChange={(end) => setEndDate(end)}
         selected={endDate}
         startDate={startDate}
         endDate={endDate}
+        isClearable
+        monthsShown={2}
+        minDate={startDate}
       />
     </>
   );
-  // return disabled ? (
-  //   <input disabled type="date" className="w-60 bg-gray-300 p-3 rounded-lg" />
-  // ) : (
-  //   <input type="date" className="w-60 bg-slate-200 p-3 rounded-lg" />
-  // );
 }
