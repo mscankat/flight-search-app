@@ -3,7 +3,7 @@ import AirportInput from "./AirportInput";
 import DatePick from "./DatePick";
 import PassengerSelect from "./PassengerSelect";
 import ToggleTripDirection from "./ToggleTripDirection";
-import { Dispatch, SetStateAction, useState } from "react";
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
 
 interface airportType {
   code: string;
@@ -37,8 +37,26 @@ export default function Form({
   );
   const [startDate, setStartDate] = useState<Date | null>(null);
   const [endDate, setEndDate] = useState<Date | null>(null);
+  const [valid, setValid] = useState(false);
+  useEffect(() => {
+    if (direction === "one") {
+      if (originAirport && arrivalAirport && startDate) {
+        setValid(true);
+      } else {
+        setValid(false);
+      }
+    } else if (direction === "round") {
+      if (originAirport && arrivalAirport && startDate && endDate) {
+        setValid(true);
+      } else {
+        setValid(false);
+      }
+    }
+    console.log();
+  }, [originAirport, arrivalAirport, startDate, endDate, direction]);
   const handleSubmit = async (e: React.MouseEvent) => {
     e.preventDefault();
+
     console.log(startDate?.valueOf);
     const query = {
       origin: originAirport?.code,
@@ -77,11 +95,13 @@ export default function Form({
             disabled={direction === "one" ? true : false}
           />
           <PassengerSelect />
+
           <button
+            disabled={valid ? false : true}
             onClick={handleSubmit}
-            className="w-40 text-center bg-green-500 p-3 rounded-lg"
+            className="w-40 text-center bg-green-500 p-3 rounded-lg disabled:bg-gray-300"
           >
-            search
+            Search flight
           </button>
         </div>
       </div>

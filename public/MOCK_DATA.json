@@ -11031,5 +11031,38 @@
     "arrival_date": "12/09/2023",
     "airline": "THY",
     "price": 4211.59
+  },
+  {
+    "flight_number": 714,
+    "departure_airport": "IST",
+    "arrival_airport": "ASR",
+    "departure_time": "3:26",
+    "arrival_time": "5:13",
+    "departure_date": "12/09/2023",
+    "arrival_date": "12/09/2023",
+    "airline": "THY",
+    "price": 4211.59
+  },
+  {
+    "flight_number": 713,
+    "departure_airport": "IST",
+    "arrival_airport": "ASR",
+    "departure_time": "5:26",
+    "arrival_time": "7:13",
+    "departure_date": "12/09/2023",
+    "arrival_date": "12/09/2023",
+    "airline": "THY",
+    "price": 4211.59
+  },
+  {
+    "flight_number": 712,
+    "departure_airport": "IST",
+    "arrival_airport": "ASR",
+    "departure_time": "8:26",
+    "arrival_time": "11:13",
+    "departure_date": "12/09/2023",
+    "arrival_date": "12/09/2023",
+    "airline": "THY",
+    "price": 4211.59
   }
 ]
