@@ -11,7 +11,7 @@ interface airportType {
   city: string;
   country: string;
 }
-interface dataType {
+interface flightInfo {
   onTime: boolean;
   flight_info: {
     airline: string;
@@ -25,10 +25,14 @@ interface dataType {
     price: number;
   };
 }
+interface dataType {
+  departure_flights: flightInfo[];
+  return_flights: flightInfo[];
+}
 export default function Form({
   setData,
 }: {
-  setData: Dispatch<SetStateAction<dataType[] | null>>;
+  setData: Dispatch<SetStateAction<dataType | null>>;
 }) {
   const [direction, setDirection] = useState("one");
   const [originAirport, setOriginAirport] = useState<airportType | null>(null);
@@ -38,6 +42,9 @@ export default function Form({
   const [startDate, setStartDate] = useState<Date | null>(null);
   const [endDate, setEndDate] = useState<Date | null>(null);
   const [valid, setValid] = useState(false);
+  useEffect(() => {
+    setEndDate(null);
+  }, [direction]);
   useEffect(() => {
     if (direction === "one") {
       if (originAirport && arrivalAirport && startDate) {
@@ -52,7 +59,6 @@ export default function Form({
         setValid(false);
       }
     }
-    console.log();
   }, [originAirport, arrivalAirport, startDate, endDate, direction]);
   const handleSubmit = async (e: React.MouseEvent) => {
     e.preventDefault();
@@ -62,6 +68,7 @@ export default function Form({
       origin: originAirport?.code,
       arrival: arrivalAirport?.code,
       departureDate: startDate?.valueOf(),
+      returnDate: endDate?.valueOf(),
     };
     const response = await fetch("http://localhost:3000/api/flights", {
       method: "POST",
