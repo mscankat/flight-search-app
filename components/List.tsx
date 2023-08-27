@@ -1,7 +1,7 @@
 "use client";
 import { dataType, flightInfo } from "@/types/types";
 import { FindAirport } from "@/utils/findAirport";
-import { Dispatch, MutableRefObject, SetStateAction, useState } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 
 export default function List({
   data,
@@ -33,7 +33,7 @@ export default function List({
     setSort(!sort);
   };
   if (data.length === 0) {
-    return <></>;
+    return <div className="transition-all">No flights were found</div>;
   }
   return (
     <>

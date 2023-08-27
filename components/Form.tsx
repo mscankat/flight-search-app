@@ -113,7 +113,7 @@ export default function Form({
           <button
             disabled={valid ? false : true}
             onClick={handleSubmit}
-            className="w-40 text-center bg-green-500 p-3 rounded-lg disabled:bg-gray-300"
+            className="w-40 text-center bg-green-500 p-3 rounded-lg disabled:bg-gray-300 disabled:text-gray-500"
           >
             Search flight
           </button>
