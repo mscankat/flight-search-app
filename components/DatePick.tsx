@@ -23,7 +23,6 @@ export default function DatePick({
 
     setStartDate(startDate);
     setEndDate(endDate);
-    console.log(startDate, endDate, range);
   };
   const handleChangeOne = (start: Date) => {
     setStartDate(start);

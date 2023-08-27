@@ -32,7 +32,6 @@ export default function AirportInput({
           body: JSON.stringify(reqBody),
         });
         const data: dataType[] = await response.json();
-        console.log(data);
         setAirport(null);
         setSuggestions(data);
         setShowSuggestions(true);

@@ -8,12 +8,9 @@ interface IReq {
 }
 export async function POST(request: Request) {
   const body: IReq = await request.json();
-  console.log(body);
-
   const origin = body.origin;
   const arrival = body.arrival;
   const departureDate = new Date(body.departureDate);
-  // const returnDate = body.returnDate;
 
   let flightResults: any[] = [];
 
@@ -29,9 +26,7 @@ export async function POST(request: Request) {
     const flight_duration_string = hours + " hour " + minutes + " minutes";
 
     if (x.departure_airport === origin && x.arrival_airport === arrival) {
-      console.log("as");
       const flightDepartureDate = new Date(x.departure_date);
-      console.log(flightDepartureDate.getDay() === departureDate.getDay());
       if (flightDepartureDate.getDay() === departureDate.getDay()) {
         flightResults.push({
           onTime: true,
@@ -40,20 +35,8 @@ export async function POST(request: Request) {
         });
       }
     }
-    // if (returnDate) {
-    //   if (x.arrival_airport === origin && x.departure_airport === arrival) {
-    //     if (x.departure_date.toString() === returnDate.toString()) {
-    //       return_flights.push({
-    //         onTime: true,
-    //         ...flight_info,
-    //         flight_duration_string: flight_duration_string,
-    //       });
-    //     }
-    //   }
-    // }
   }
 
-  // console.log(result);
   return NextResponse.json({
     flights: flightResults,
   });

@@ -32,7 +32,6 @@ export default function List({
     setData({ flights: sorted });
     setSort(!sort);
   };
-  console.log(data);
   if (data.length === 0) {
     return <></>;
   }
