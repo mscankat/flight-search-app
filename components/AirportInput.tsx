@@ -25,15 +25,19 @@ export default function AirportInput({
     setInput(e.target.value);
     if (e.target.value !== "") {
       const reqBody = { query: e.target.value };
-      const response = await fetch("http://localhost:3000/api", {
-        method: "POST",
-        body: JSON.stringify(reqBody),
-      });
-      const data: dataType[] = await response.json();
-      console.log(data);
-      setAirport(null);
-      setSuggestions(data);
-      setShowSuggestions(true);
+      try {
+        const response = await fetch("http://localhost:3000/api", {
+          method: "POST",
+          body: JSON.stringify(reqBody),
+        });
+        const data: dataType[] = await response.json();
+        console.log(data);
+        setAirport(null);
+        setSuggestions(data);
+        setShowSuggestions(true);
+      } catch (error) {
+        console.log("Error on fetch:", error);
+      }
     } else {
       setAirport(null);
       setShowSuggestions(false);
