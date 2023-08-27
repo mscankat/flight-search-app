@@ -1,7 +1,7 @@
 "use client";
 import { dataType, flightInfo } from "@/types/types";
 import { FindAirport } from "@/utils/findAirport";
-import { Dispatch, SetStateAction, useState } from "react";
+import { Dispatch, MutableRefObject, SetStateAction, useState } from "react";
 
 export default function List({
   data,
@@ -85,7 +85,9 @@ export default function List({
                 key={flight.flight_number}
                 className="shadow-sm flex w-1000 h-32 bg-gray-300 items-center mb-2 "
               >
-                <div className="w-32 bg-gray-600 h-full "></div>
+                <div className="w-32 bg-gray-600 h-full flex justify-center items-center">
+                  <img src="/icons/airplane.png" alt="airplane icon" />
+                </div>
                 <div className="flex gap-8 mx-20 items-center w-72 ">
                   <div className="text-center">
                     <div className="font-medium text-lg">
@@ -99,7 +101,7 @@ export default function List({
                     </div>
                     <div className="font-light">{flight.departure_airport}</div>
                   </div>
-                  <div className="bg-main rounded-full p-1 px-2 text-xs font-light text-white tracking-wider">
+                  <div className="bg-main rounded-full p-1 px-2 text-xs font-light text-white tracking-wide">
                     {flight.flight_duration_string}
                   </div>
                   <div className="text-center">

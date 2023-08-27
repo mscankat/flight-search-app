@@ -30,9 +30,18 @@ export default function PassengerSelect() {
   return (
     <>
       <div className="w-60 relative bg-slate-200 p-1 px-2 rounded-lg">
-        <div onClick={handleClickOpen} className="cursor-pointer">
-          <div className="text-xs ">Passenger</div>
-          <div className="">{adults + children + infants + " Passengers"}</div>
+        <div onClick={handleClickOpen} className="cursor-pointer flex">
+          <img
+            src="icons/passengers.png"
+            alt="passengers icon"
+            className="w-8 object-contain mr-3 ml-1 "
+          />
+          <div>
+            <div className="text-xs ">Passenger</div>
+            <div className="">
+              {adults + children + infants + " Passengers"}
+            </div>
+          </div>
         </div>
         {dropDown && (
           <div className="absolute top-14 left-0 bg-slate-200 w-60 rounded-sm">

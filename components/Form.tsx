@@ -10,9 +10,13 @@ import { getData } from "@/utils/getData";
 export default function Form({
   setData,
   setReturnData,
+  data,
+  returnData,
 }: {
   setData: Dispatch<SetStateAction<dataType | null>>;
   setReturnData: Dispatch<SetStateAction<dataType | null>>;
+  data: dataType | null;
+  returnData: dataType | null;
 }) {
   const [direction, setDirection] = useState("one");
   const [originAirport, setOriginAirport] = useState<airportType | null>(null);
@@ -46,23 +50,32 @@ export default function Form({
   //Handle Submit
   const handleSubmit = async (e: React.MouseEvent) => {
     e.preventDefault();
+    let returnResponse: dataType;
     if (originAirport && arrivalAirport && startDate) {
-      setData(
-        await getData(
-          originAirport?.code,
-          arrivalAirport?.code,
-          startDate?.valueOf()
-        )
+      const response = await getData(
+        originAirport?.code,
+        arrivalAirport?.code,
+        startDate?.valueOf()
       );
+      setData(response);
       if (endDate) {
-        setReturnData(
-          await getData(
-            arrivalAirport?.code,
-            originAirport?.code,
-            endDate?.valueOf()
-          )
+        returnResponse = await getData(
+          arrivalAirport?.code,
+          originAirport?.code,
+          endDate?.valueOf()
         );
+        setReturnData(returnResponse);
       }
+      setTimeout(() => {
+        if (
+          (response && response.flights.length > 0) ||
+          (returnResponse && returnResponse?.flights.length > 0)
+        ) {
+          document
+            .getElementsByClassName("shadow-sm")[0]
+            .scrollIntoView({ behavior: "smooth" });
+        }
+      }, 1000);
     }
   };
   return (

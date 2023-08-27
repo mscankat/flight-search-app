@@ -55,6 +55,15 @@ export default function AirportInput({
   return (
     <div className="flex flex-col relative">
       <div className=" w-96 bg-slate-300 p-2 rounded-lg flex items-center">
+        <img
+          className="w-7 mr-3 ml-2"
+          src={
+            destination === "From"
+              ? "/icons/departure.png"
+              : "icons/arrival.png"
+          }
+          alt="airplane icon"
+        />
         <div className="flex-1">
           <input
             type="text"
