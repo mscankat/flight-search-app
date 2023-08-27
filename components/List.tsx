@@ -24,12 +24,17 @@ export default function List({ data }: { data: flightInfo[] }) {
     <>
       <div className="mb-12">
         <div>
-          <div className="text-2xl  text-left w-full pb-6">
+          <div className="text-2xl  text-left w-full pb-2">
             <div className="text-gray-500 font-medium text-xl">Flights for</div>
             <span className="font-semibold">Kayseri </span>(
             {data[0].departure_airport}) to{" "}
             <span className="font-semibold">Istanbul </span>(
             {data[0].arrival_airport})
+          </div>
+          <div className="pb-4 text-xl">
+            {new Date(data[0].arrival_date).toString().split(" ")[2] +
+              " " +
+              new Date(data[0].arrival_date).toString().split(" ")[1]}
           </div>
         </div>
         <div className="">
@@ -43,20 +48,28 @@ export default function List({ data }: { data: flightInfo[] }) {
                 <div className="flex gap-8 mr-20 items-center">
                   <div className="text-center">
                     <div className="font-medium text-lg">
-                      {new Date(flight.departure_date).getHours() +
+                      {("0" + new Date(flight.departure_date).getHours()).slice(
+                        -2
+                      ) +
                         ":" +
-                        new Date(flight.departure_date).getMinutes()}
+                        (
+                          "0" + new Date(flight.departure_date).getMinutes()
+                        ).slice(-2)}
                     </div>
                     <div className="font-light">{flight.departure_airport}</div>
                   </div>
-                  <div className="bg-main rounded-full p-1 text-xs font-light text-white tracking-wider">
+                  <div className="bg-main rounded-full p-1 px-2 text-xs font-light text-white tracking-wider">
                     {flight.flight_duration_string}
                   </div>
                   <div className="text-center">
                     <div className="font-medium text-lg">
-                      {new Date(flight.arrival_date).getHours() +
+                      {("0" + new Date(flight.arrival_date).getHours()).slice(
+                        -2
+                      ) +
                         ":" +
-                        new Date(flight.arrival_date).getMinutes()}
+                        (
+                          "0" + new Date(flight.arrival_date).getMinutes()
+                        ).slice(-2)}
                     </div>
                     <div className="font-light">{flight.arrival_airport}</div>
                   </div>
