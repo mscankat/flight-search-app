@@ -1,7 +1,7 @@
-"use client";
-import { Dispatch, SetStateAction, useState } from "react";
-import Datepicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
+'use client';
+import { Dispatch, SetStateAction, useState } from 'react';
+import Datepicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
 
 export default function DatePick({
   disabled,
@@ -31,16 +31,16 @@ export default function DatePick({
     <>
       <Datepicker
         className="w-60 bg-slate-200 p-3 cursor-pointer rounded-lg"
-        dateFormat={"dd/MM/yyyy"}
+        dateFormat={'dd/MM/yyyy'}
         selected={startDate}
         onChange={handleChangeOne}
         startDate={startDate}
         isClearable
-        minDate={new Date()}
+        minDate={new Date('08/27/2023')}
         placeholderText="Departure date"
       />
       <Datepicker
-        dateFormat={"dd/MM/yyyy"}
+        dateFormat={'dd/MM/yyyy'}
         disabled
         className="w-60 p-3 rounded-lg"
         onChange={() => null}
@@ -50,19 +50,19 @@ export default function DatePick({
     <>
       <Datepicker
         className="w-60 bg-slate-200 p-3 cursor-pointer rounded-lg"
-        dateFormat={"dd/MM/yyyy"}
+        dateFormat={'dd/MM/yyyy'}
         selected={startDate}
         onChange={handleChange}
         startDate={startDate}
         selectsRange
         monthsShown={2}
         isClearable
-        minDate={new Date()}
+        minDate={new Date('08/27/2023')}
         placeholderText="Departure date"
       />
       <Datepicker
         className="w-60 bg-slate-200 p-3 cursor-pointer rounded-lg"
-        dateFormat={"dd/MM/yyyy"}
+        dateFormat={'dd/MM/yyyy'}
         onChange={(end) => setEndDate(end)}
         selected={endDate}
         startDate={startDate}
