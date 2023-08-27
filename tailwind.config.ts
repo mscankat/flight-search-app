@@ -19,6 +19,7 @@ const config: Config = {
       },
       colors: {
         main: "#005eb8",
+        "light-main": "#00a9e0",
       },
     },
   },

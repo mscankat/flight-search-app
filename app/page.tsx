@@ -14,7 +14,7 @@ export default function Home() {
   }, [data]);
   return (
     <>
-      <div className=" absolute flex flex-col justify-center items-center">
+      <div className=" absolute flex flex-col justify-center items-center bg-gray-50">
         <Image src={banner} alt="plane photo" className=" object-"></Image>
         <Form setData={setData} setReturnData={setReturnData} />
         {data && (

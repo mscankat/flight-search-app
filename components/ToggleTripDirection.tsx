@@ -18,7 +18,7 @@ export default function ToggleTripDirection({
         onClick={handleClick}
         id="one"
         className={` p-1 rounded-s-xl cursor-pointer transition-colors ${
-          direction === "one" ? "bg-blue-400" : "bg-slate-100"
+          direction === "one" ? "bg-orange-400 " : "bg-slate-100"
         }`}
       >
         One Way
@@ -27,7 +27,7 @@ export default function ToggleTripDirection({
         onClick={handleClick}
         id="round"
         className={` p-1 rounded-e-xl cursor-pointer transition-colors ${
-          direction === "round" ? "bg-blue-400" : "bg-slate-100"
+          direction === "round" ? "bg-orange-400" : "bg-slate-100"
         }`}
       >
         Round Trip

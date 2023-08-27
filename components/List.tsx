@@ -83,10 +83,10 @@ export default function List({
             return (
               <div
                 key={flight.flight_number}
-                className="flex w-1000 h-32 bg-gray-300 items-center mb-2 justify-between"
+                className="shadow-sm flex w-1000 h-32 bg-gray-300 items-center mb-2 "
               >
                 <div className="w-32 bg-gray-600 h-full "></div>
-                <div className="flex gap-8 mr-20 items-center">
+                <div className="flex gap-8 mx-20 items-center w-72 ">
                   <div className="text-center">
                     <div className="font-medium text-lg">
                       {("0" + new Date(flight.departure_date).getHours()).slice(
@@ -115,7 +115,7 @@ export default function List({
                     <div className="font-light">{flight.arrival_airport}</div>
                   </div>
                 </div>
-                <div className="">
+                <div className="flex-1 ml-20">
                   <div>{flight.airline}</div>
                   <div>{flight.flight_number}</div>
                 </div>

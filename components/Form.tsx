@@ -22,9 +22,11 @@ export default function Form({
   const [startDate, setStartDate] = useState<Date | null>(null);
   const [endDate, setEndDate] = useState<Date | null>(null);
   const [valid, setValid] = useState(false);
+
   useEffect(() => {
     setEndDate(null);
   }, [direction]);
+  //validation (disable button if is not valid)
   useEffect(() => {
     if (direction === "one") {
       if (originAirport && arrivalAirport && startDate) {
@@ -62,40 +64,25 @@ export default function Form({
         );
       }
     }
-    // const query = {
-    //   origin: originAirport?.code,
-    //   arrival: arrivalAirport?.code,
-    //   departureDate: startDate?.valueOf(),
-    //   // returnDate: endDate?.valueOf(),
-    // };
-    // const response = await fetch("http://localhost:3000/api/flights", {
-    //   method: "POST",
-    //   body: JSON.stringify(query),
-    // });
-    // const data = await response.json();
-    // setData(data);
-    // console.log(data);
-    // if(endDate){
-    //   const response = await fetch("http://localhost:3000/api/flights", {
-    //   method: "POST",
-    //   body: JSON.stringify(query),
-    // });
-    // const data = await response.json();
-    // setData(data);
-    // console.log(data);
-    // }
   };
   return (
     <>
-      <div className="w-1000 h-96 bg-gray-400 relative bottom-24 rounded-xl">
+      <div className="w-1000 h-80 bg-main relative bottom-24 rounded-xl">
         <ToggleTripDirection
           direction={direction}
           setDirection={setDirection}
         />
         <div className="flex px-11 pb-11 justify-between">
-          <AirportInput airport={originAirport} setAirport={setOriginAirport} />
-          <div>exh</div>
           <AirportInput
+            destination="From"
+            airport={originAirport}
+            setAirport={setOriginAirport}
+          />
+          <div>
+            <img src="/icons/exchange.png" alt="" />
+          </div>
+          <AirportInput
+            destination="To"
             airport={arrivalAirport}
             setAirport={setArrivalAirport}
           />

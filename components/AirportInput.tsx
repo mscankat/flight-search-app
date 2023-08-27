@@ -11,9 +11,11 @@ interface dataType {
 export default function AirportInput({
   airport,
   setAirport,
+  destination,
 }: {
   airport: dataType | null;
   setAirport: Dispatch<SetStateAction<dataType | null>>;
+  destination: string;
 }) {
   const [suggestions, setSuggestions] = useState<dataType[]>([]);
   const [showSuggestions, setShowSuggestions] = useState(false);
@@ -45,31 +47,40 @@ export default function AirportInput({
   const handleSuggestionClose = () => {
     setShowSuggestions(false);
   };
+  const handleClearInput = () => {
+    setInput("");
+    setAirport(null);
+  };
 
   return (
     <div className="flex flex-col relative">
-      <div className=" w-96 bg-slate-300 p-2 rounded-lg ">
-        <input
-          type="text"
-          onChange={handleChange}
-          value={input}
-          placeholder="from"
-          className="bg-transparent outline-none w-full"
-        />
-        {airport && (
-          <div className="text-sm">
-            {airport.city + " (" + airport.code + ")"}
-          </div>
-        )}
+      <div className=" w-96 bg-slate-300 p-2 rounded-lg flex items-center">
+        <div className="flex-1">
+          <input
+            type="text"
+            onChange={handleChange}
+            value={input}
+            placeholder={destination}
+            className="bg-transparent outline-none cursor-pointer w-full px-1"
+          />
+          {airport && (
+            <div className="text-sm px-1">
+              {airport.city + " (" + airport.code + ")"}
+            </div>
+          )}
+        </div>
+        <div onClick={handleClearInput} className="w-5 cursor-pointer">
+          <img src="icons/close.png" alt="" />
+        </div>
       </div>
       {suggestions[0] && showSuggestions && (
         <ul className="absolute top-14 bg-zinc-100 rounded-sm z-10 ">
           <li>
             <div
               onClick={handleSuggestionClose}
-              className=" cursor-pointer w-2 ml-auto mr-6 mt-2 p-2"
+              className=" cursor-pointer w-5 ml-auto m-4 mb-2"
             >
-              X
+              <img src={"/icons/close.png"} alt="close icon" />
             </div>
           </li>
           {suggestions.map((suggestion, index) => {

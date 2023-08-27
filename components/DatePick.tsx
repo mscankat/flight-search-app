@@ -31,13 +31,14 @@ export default function DatePick({
   return disabled ? (
     <>
       <Datepicker
-        className="w-60 bg-slate-200 p-3 rounded-lg"
+        className="w-60 bg-slate-200 p-3 cursor-pointer rounded-lg"
         dateFormat={"dd/MM/yyyy"}
         selected={startDate}
         onChange={handleChangeOne}
         startDate={startDate}
         isClearable
         minDate={new Date()}
+        placeholderText="Departure date"
       />
       <Datepicker
         dateFormat={"dd/MM/yyyy"}
@@ -49,7 +50,7 @@ export default function DatePick({
   ) : (
     <>
       <Datepicker
-        className="w-60 bg-slate-200 p-3 rounded-lg"
+        className="w-60 bg-slate-200 p-3 cursor-pointer rounded-lg"
         dateFormat={"dd/MM/yyyy"}
         selected={startDate}
         onChange={handleChange}
@@ -58,9 +59,10 @@ export default function DatePick({
         monthsShown={2}
         isClearable
         minDate={new Date()}
+        placeholderText="Departure date"
       />
       <Datepicker
-        className="w-60 bg-slate-200 p-3 rounded-lg"
+        className="w-60 bg-slate-200 p-3 cursor-pointer rounded-lg"
         dateFormat={"dd/MM/yyyy"}
         onChange={(end) => setEndDate(end)}
         selected={endDate}
@@ -69,6 +71,7 @@ export default function DatePick({
         isClearable
         monthsShown={2}
         minDate={startDate}
+        placeholderText="Return date"
       />
     </>
   );
