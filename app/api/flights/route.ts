@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import flights from "@/public/MOCK_DATA.json";
+import flights from "@/public/domestic_flights.json";
 interface IReq {
   origin: string;
   arrival: string;
@@ -12,26 +12,55 @@ export async function POST(request: Request) {
   const arrival = body.arrival;
   const departureDate = body.departureDate;
   const returnDate = body.returnDate;
-  console.log(body);
+
   let departure_flights: any[] = [];
   let return_flights: any[] = [];
 
   for (const x of flights) {
     const flight_info = x;
 
+    const flightDuration = x.flight_duration / 3600;
+    const n = new Date(0, 0);
+    n.setMinutes(+Math.round(flightDuration * 60));
+    const hours = n.getHours();
+    const minutes = n.getMinutes();
+    // console.log("Hours: ", hours, "Minutes: ", minutes);
+    const flight_duration_string = hours + " hour " + minutes + " minutes";
+    // console.log(x.flight_duration);
+    // console.log(flightDuration);
+
     if (x.departure_airport === origin && x.arrival_airport === arrival) {
+      // console.log(flightArrivalDate.valueOf() - flightDepartureDate.valueOf());
+      // console.log(flightArrivalDate, flightDepartureDate);
+
       if (x.departure_date.toString() === departureDate.toString()) {
-        departure_flights.push({ onTime: true, flight_info });
+        departure_flights.push({
+          onTime: true,
+          ...flight_info,
+          flight_duration_string: flight_duration_string,
+        });
       } else {
-        departure_flights.push({ onTime: false, flight_info });
+        departure_flights.push({
+          onTime: false,
+          ...flight_info,
+          flight_duration_string: flight_duration_string,
+        });
       }
     }
     if (returnDate) {
       if (x.arrival_airport === origin && x.departure_airport === arrival) {
         if (x.departure_date.toString() === returnDate.toString()) {
-          return_flights.push({ onTime: true, flight_info });
+          return_flights.push({
+            onTime: true,
+            ...flight_info,
+            flight_duration_string: flight_duration_string,
+          });
         } else {
-          return_flights.push({ onTime: false, flight_info });
+          return_flights.push({
+            onTime: false,
+            ...flight_info,
+            flight_duration_string: flight_duration_string,
+          });
         }
       }
     }

@@ -6,17 +6,15 @@ import List from "@/components/List";
 import { useEffect, useState } from "react";
 interface flightInfo {
   onTime: boolean;
-  flight_info: {
-    airline: string;
-    arrival_airport: string;
-    arrival_date: string;
-    arrival_time: string;
-    departure_airport: string;
-    departure_date: string;
-    departure_time: string;
-    flight_number: number;
-    price: number;
-  };
+  airline: string;
+  arrival_airport: string;
+  arrival_date: number;
+  departure_airport: string;
+  departure_date: number;
+  flight_number: number;
+  price: number;
+  flight_duration: number;
+  flight_duration_string: string;
 }
 interface dataType {
   departure_flights: flightInfo[];
