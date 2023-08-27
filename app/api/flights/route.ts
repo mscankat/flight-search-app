@@ -8,13 +8,14 @@ interface IReq {
 }
 export async function POST(request: Request) {
   const body: IReq = await request.json();
+  console.log(body);
+
   const origin = body.origin;
   const arrival = body.arrival;
   const departureDate = new Date(body.departureDate);
-  const returnDate = body.returnDate;
+  // const returnDate = body.returnDate;
 
-  let departure_flights: any[] = [];
-  let return_flights: any[] = [];
+  let flightResults: any[] = [];
 
   for (const x of flights) {
     const flight_info = x;
@@ -28,32 +29,32 @@ export async function POST(request: Request) {
     const flight_duration_string = hours + " hour " + minutes + " minutes";
 
     if (x.departure_airport === origin && x.arrival_airport === arrival) {
+      console.log("as");
       const flightDepartureDate = new Date(x.departure_date);
       console.log(flightDepartureDate.getDay() === departureDate.getDay());
       if (flightDepartureDate.getDay() === departureDate.getDay()) {
-        departure_flights.push({
+        flightResults.push({
           onTime: true,
           ...flight_info,
           flight_duration_string: flight_duration_string,
         });
       }
     }
-    if (returnDate) {
-      if (x.arrival_airport === origin && x.departure_airport === arrival) {
-        if (x.departure_date.toString() === returnDate.toString()) {
-          return_flights.push({
-            onTime: true,
-            ...flight_info,
-            flight_duration_string: flight_duration_string,
-          });
-        }
-      }
-    }
+    // if (returnDate) {
+    //   if (x.arrival_airport === origin && x.departure_airport === arrival) {
+    //     if (x.departure_date.toString() === returnDate.toString()) {
+    //       return_flights.push({
+    //         onTime: true,
+    //         ...flight_info,
+    //         flight_duration_string: flight_duration_string,
+    //       });
+    //     }
+    //   }
+    // }
   }
 
   // console.log(result);
   return NextResponse.json({
-    departure_flights: departure_flights,
-    return_flights: return_flights,
+    flights: flightResults,
   });
 }

@@ -1,36 +1,18 @@
 "use client";
+import { airportType, dataType } from "@/types/types";
 import AirportInput from "./AirportInput";
 import DatePick from "./DatePick";
 import PassengerSelect from "./PassengerSelect";
 import ToggleTripDirection from "./ToggleTripDirection";
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
+import { getData } from "@/utils/getData";
 
-interface airportType {
-  code: string;
-  name: string;
-  city: string;
-  country: string;
-}
-interface flightInfo {
-  onTime: boolean;
-  airline: string;
-  arrival_airport: string;
-  arrival_date: number;
-  departure_airport: string;
-  departure_date: number;
-  flight_number: number;
-  price: number;
-  flight_duration: number;
-  flight_duration_string: string;
-}
-interface dataType {
-  departure_flights: flightInfo[];
-  return_flights: flightInfo[];
-}
 export default function Form({
   setData,
+  setReturnData,
 }: {
   setData: Dispatch<SetStateAction<dataType | null>>;
+  setReturnData: Dispatch<SetStateAction<dataType | null>>;
 }) {
   const [direction, setDirection] = useState("one");
   const [originAirport, setOriginAirport] = useState<airportType | null>(null);
@@ -58,23 +40,50 @@ export default function Form({
       }
     }
   }, [originAirport, arrivalAirport, startDate, endDate, direction]);
+
+  //Handle Submit
   const handleSubmit = async (e: React.MouseEvent) => {
     e.preventDefault();
-
-    console.log(startDate?.valueOf);
-    const query = {
-      origin: originAirport?.code,
-      arrival: arrivalAirport?.code,
-      departureDate: startDate?.valueOf(),
-      returnDate: endDate?.valueOf(),
-    };
-    const response = await fetch("http://localhost:3000/api/flights", {
-      method: "POST",
-      body: JSON.stringify(query),
-    });
-    const data = await response.json();
-    setData(data);
-    console.log(data);
+    if (originAirport && arrivalAirport && startDate) {
+      setData(
+        await getData(
+          originAirport?.code,
+          arrivalAirport?.code,
+          startDate?.valueOf()
+        )
+      );
+      if (endDate) {
+        setReturnData(
+          await getData(
+            arrivalAirport?.code,
+            originAirport?.code,
+            endDate?.valueOf()
+          )
+        );
+      }
+    }
+    // const query = {
+    //   origin: originAirport?.code,
+    //   arrival: arrivalAirport?.code,
+    //   departureDate: startDate?.valueOf(),
+    //   // returnDate: endDate?.valueOf(),
+    // };
+    // const response = await fetch("http://localhost:3000/api/flights", {
+    //   method: "POST",
+    //   body: JSON.stringify(query),
+    // });
+    // const data = await response.json();
+    // setData(data);
+    // console.log(data);
+    // if(endDate){
+    //   const response = await fetch("http://localhost:3000/api/flights", {
+    //   method: "POST",
+    //   body: JSON.stringify(query),
+    // });
+    // const data = await response.json();
+    // setData(data);
+    // console.log(data);
+    // }
   };
   return (
     <>

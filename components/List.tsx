@@ -1,22 +1,37 @@
 "use client";
+import { dataType, flightInfo } from "@/types/types";
 import { FindAirport } from "@/utils/findAirport";
-interface flightInfo {
-  onTime: boolean;
-  airline: string;
-  arrival_airport: string;
-  arrival_date: number;
-  departure_airport: string;
-  departure_date: number;
-  flight_number: number;
-  price: number;
-  flight_duration: number;
-  flight_duration_string: string;
-}
-interface dataType {
-  departure_flights: flightInfo;
-  return_flights: flightInfo;
-}
-export default function List({ data }: { data: flightInfo[] }) {
+import { Dispatch, SetStateAction, useState } from "react";
+
+export default function List({
+  data,
+  setData,
+}: {
+  data: flightInfo[];
+  setData: Dispatch<SetStateAction<dataType | null>>;
+}) {
+  const [sort, setSort] = useState(true);
+  const handleSortByTime = (a: boolean) => {
+    const sorted = a
+      ? data.sort((a, b) => a.departure_date - b.departure_date)
+      : data.sort((b, a) => a.departure_date - b.departure_date);
+    setData({ flights: sorted });
+    setSort(!sort);
+  };
+  const handleSortByPrice = (a: boolean) => {
+    const sorted = a
+      ? data.sort((a, b) => a.price - b.price)
+      : data.sort((b, a) => a.price - b.price);
+    setData({ flights: sorted });
+    setSort(!sort);
+  };
+  const handleSortByDuration = (a: boolean) => {
+    const sorted = a
+      ? data.sort((a, b) => a.flight_duration - b.flight_duration)
+      : data.sort((b, a) => a.flight_duration - b.flight_duration);
+    setData({ flights: sorted });
+    setSort(!sort);
+  };
   console.log(data);
   if (data.length === 0) {
     return <></>;
@@ -42,7 +57,28 @@ export default function List({ data }: { data: flightInfo[] }) {
               new Date(data[0].arrival_date).toString().split(" ")[1]}
           </div>
         </div>
-        <div className="">
+        <div className="flex justify-end gap-6 mb-4 pr-4 h-10 items-center rounded-t-md bg-main text-white font-bold">
+          <div className="text-sm font-light">Sort by</div>
+          <div
+            onClick={() => handleSortByTime(sort)}
+            className="cursor-pointer"
+          >
+            Departure Time
+          </div>
+          <div
+            onClick={() => handleSortByDuration(sort)}
+            className="cursor-pointer"
+          >
+            Flight Duration
+          </div>
+          <div
+            onClick={() => handleSortByPrice(sort)}
+            className="cursor-pointer"
+          >
+            Price
+          </div>
+        </div>
+        <div>
           {data.map((flight) => {
             return (
               <div
