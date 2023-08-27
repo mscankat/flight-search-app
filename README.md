@@ -40,6 +40,7 @@ I have created mock data using _mockaroo_, found database of airports and served
 - Clone the repository: `git clone https://github.com/mscankat/flight-search-app.git`
 - Navigate to the project directory: `cd flight-search-app`
 - Install dependencies: `npm install`
+- Create env file from example `cp ./.env.example .env` or `cp .env.example .env`
 
 ## Running The App
 
