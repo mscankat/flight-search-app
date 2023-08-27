@@ -1,4 +1,5 @@
 "use client";
+import { FindAirport } from "@/utils/findAirport";
 interface flightInfo {
   onTime: boolean;
   airline: string;
@@ -26,10 +27,14 @@ export default function List({ data }: { data: flightInfo[] }) {
         <div>
           <div className="text-2xl  text-left w-full pb-2">
             <div className="text-gray-500 font-medium text-xl">Flights for</div>
-            <span className="font-semibold">Kayseri </span>(
-            {data[0].departure_airport}) to{" "}
-            <span className="font-semibold">Istanbul </span>(
-            {data[0].arrival_airport})
+            <span className="font-semibold">
+              {FindAirport(data[0].departure_airport)}{" "}
+            </span>
+            ({data[0].departure_airport}) to{" "}
+            <span className="font-semibold">
+              {FindAirport(data[0].arrival_airport)}{" "}
+            </span>
+            ({data[0].arrival_airport})
           </div>
           <div className="pb-4 text-xl">
             {new Date(data[0].arrival_date).toString().split(" ")[2] +
