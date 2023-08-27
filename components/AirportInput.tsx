@@ -20,13 +20,14 @@ export default function AirportInput({
   const [suggestions, setSuggestions] = useState<dataType[]>([]);
   const [showSuggestions, setShowSuggestions] = useState(false);
   const [input, setInput] = useState("");
+  const url = process.env.NEXT_PUBLIC_URL;
 
   const handleChange = async (e: any) => {
     setInput(e.target.value);
     if (e.target.value !== "") {
       const reqBody = { query: e.target.value };
       try {
-        const response = await fetch("http://localhost:3000/api", {
+        const response = await fetch(`${url}/api`, {
           method: "POST",
           body: JSON.stringify(reqBody),
         });

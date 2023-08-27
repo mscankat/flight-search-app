@@ -3,13 +3,14 @@ export async function getData(
   arrival: string,
   departureDate: number
 ) {
+  const url = process.env.NEXT_PUBLIC_URL;
   const query = {
     origin: origin,
     arrival: arrival,
     departureDate: departureDate,
   };
   try {
-    const response = await fetch("http://localhost:3000/api/flights", {
+    const response = await fetch(`${url}/api/flights`, {
       method: "POST",
       body: JSON.stringify(query),
     });
