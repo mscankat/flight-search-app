@@ -27,7 +27,7 @@ export async function POST(request: Request) {
 
     if (x.departure_airport === origin && x.arrival_airport === arrival) {
       const flightDepartureDate = new Date(x.departure_date);
-      if (flightDepartureDate.getDay() === departureDate.getDay()) {
+      if (flightDepartureDate.toDateString() === departureDate.toDateString()) {
         flightResults.push({
           onTime: true,
           ...flight_info,
