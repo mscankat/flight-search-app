@@ -4,29 +4,39 @@ import flights from "@/public/MOCK_DATA.json";
 interface IReq {
   origin: string;
   arrival: string;
-  departureDate: string;
+  departureDate: Date;
+  returnDate?: Date;
 }
 export async function POST(request: Request) {
   const body: IReq = await request.json();
   const origin = body.origin;
   const arrival = body.arrival;
   const departureDate = body.departureDate;
-  let result: any[] = [];
+  const returnDate = body.returnDate;
+  let resultDeparture: any[] = [];
+  let resultReturn: any[] = [];
+
   for (const x of flights) {
+    const flight_info = x;
+
     if (x.departure_airport === origin && x.arrival_airport === arrival) {
-      console.log(x.departure_date.toString());
-      console.log(departureDate);
-      console.log(new Date(x.departure_date.toString()));
-      console.log(new Date(departureDate));
-      const flight_info = x;
-      if (x.departure_date.toString() === departureDate) {
-        result.push({ onTime: true, flight_info });
+      if (x.departure_date.toString() === departureDate.toString()) {
+        resultDeparture.push({ onTime: true, flight_info });
       } else {
-        result.push({ onTime: false, flight_info });
+        resultDeparture.push({ onTime: false, flight_info });
+      }
+    }
+    if (returnDate) {
+      if (x.arrival_airport === origin && x.departure_airport === arrival) {
+        if (x.departure_date.toString() === returnDate.toString()) {
+          resultReturn.push({ onTime: true, flight_info });
+        } else {
+          resultReturn.push({ onTime: false, flight_info });
+        }
       }
     }
   }
 
-  console.log(result);
-  return NextResponse.json(result);
+  // console.log(result);
+  return NextResponse.json({ resultDeparture, resultReturn });
 }
